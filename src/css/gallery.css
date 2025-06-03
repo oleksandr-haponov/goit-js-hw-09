@@ -1,3 +1,8 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
@@ -18,8 +23,7 @@
   height: 200px;
   object-fit: cover;
   transition: all 0.3s ease;
-  cursor: zoom-in;
-  border-radius: 8px;
+  cursor: pointer;
 }
 
 .gallery__image:hover,
@@ -30,14 +34,15 @@
   outline: none;
 }
 
-/* Стилі модального зображення для SimpleLightbox */
+/* Адаптація для SimpleLightbox */
 .sl-overlay {
   background: rgba(46, 47, 66, 0.8);
 }
 
 .sl-wrapper .sl-image {
-  margin: 28px auto;
-  max-width: 1112px;
-  height: auto;
+  width: 1112px;
+  height: 640px;
   object-fit: contain;
+  margin: 28px auto;
+  display: block;
 }

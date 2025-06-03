@@ -8,28 +8,25 @@ let formData = {
   message: '',
 };
 
-// Відновлення збережених даних
+// Завантаження даних
 const savedData = localStorage.getItem(STORAGE_KEY);
 if (savedData) {
-  try {
-    formData = JSON.parse(savedData);
-    form.email.value = formData.email || '';
-    form.message.value = formData.message || '';
-  } catch (e) {
-    console.error('Помилка при читанні з localStorage', e);
-  }
+  formData = JSON.parse(savedData);
+  form.email.value = formData.email || '';
+  form.message.value = formData.message || '';
 }
 
-// Збереження даних з debounce і trim
-const saveToStorage = debounce(event => {
-  const { name, value } = event.target;
-  formData[name] = value.trimStart();
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-}, 300);
+// Input подія з debounce
+form.addEventListener(
+  'input',
+  debounce(event => {
+    const { name, value } = event.target;
+    formData[name] = value.trimStart();
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+  }, 500)
+);
 
-form.addEventListener('input', saveToStorage);
-
-// Сабміт форми
+// Submit подія
 form.addEventListener('submit', event => {
   event.preventDefault();
 
@@ -41,10 +38,9 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  const result = { email, message };
-  console.log(result);
+  console.log({ email, message });
 
-  localStorage.removeItem(STORAGE_KEY);
   form.reset();
+  localStorage.removeItem(STORAGE_KEY);
   formData = { email: '', message: '' };
 });

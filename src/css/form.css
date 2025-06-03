@@ -1,75 +1,91 @@
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f9f9f9;
+  font-family: Montserrat, sans-serif;
+}
+
 .feedback-form {
-  display: inline-flex;
+  width: 408px;
+  height: 296px;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: 24px;
   gap: 16px;
-
   border-radius: 8px;
   background: #fff;
-
-  font-family: Montserrat, sans-serif;
+  border: 1px solid #d3d3d3; /* світло-сіра кайма */
+  box-sizing: border-box;
 }
 
-/* Стилізація підписів Email і Message */
 .feedback-form label {
   color: #2e2f42;
   font-size: 16px;
-  font-style: normal;
   font-weight: 400;
   line-height: 24px;
   letter-spacing: 0.64px;
-
   display: flex;
   flex-direction: column;
   gap: 8px;
+  width: 100%;
 }
 
-/* Поле для Email */
-.feedback-form input[type="email"] {
-  display: flex;
-  width: 360px;
-  height: 40px;
-  justify-content: center;
-  align-items: center;
-
-  border: 1px solid #808080;
-  border-radius: 4px;
-  padding: 8px;
-  font-size: 16px;
-}
-
-/* Поле для Message */
+.feedback-form input[type='email'],
 .feedback-form textarea {
   width: 360px;
-  height: 80px;
-  flex-shrink: 0;
-
-  border-radius: 4px;
+  height: 40px;
   border: 1px solid #808080;
+  border-radius: 4px;
   padding: 8px;
   font-size: 16px;
+  resize: none;
+  box-sizing: border-box;
 }
 
-/* Кнопка Submit */
+/* При фокусі показати підказку */
+.feedback-form input:focus::placeholder,
+.feedback-form textarea:focus::placeholder {
+  color: #2e2f42;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.64px;
+}
+
+.feedback-form input:focus,
+.feedback-form textarea:focus,
+.feedback-form input:hover,
+.feedback-form textarea:hover {
+  border: 1px solid #000;
+  outline: none;
+}
+
+/* textarea — змінюємо висоту */
+.feedback-form textarea {
+  height: 80px;
+}
+
+/* Кнопка */
 .feedback-form button {
   display: flex;
   padding: 8px 16px;
   justify-content: center;
   align-items: center;
   gap: 10px;
-
   border: none;
   border-radius: 8px;
   background: #4e75ff;
-
   color: #fff;
-  font-family: Montserrat, sans-serif;
   font-size: 16px;
-  font-style: normal;
   font-weight: 500;
   line-height: 24px;
   letter-spacing: 0.64px;
-
   cursor: pointer;
+}
+
+.feedback-form button:hover {
+  background: #6c8cff;
 }

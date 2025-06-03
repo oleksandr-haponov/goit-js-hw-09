@@ -1,3 +1,5 @@
+import debounce from 'lodash.debounce';
+
 const form = document.querySelector('.feedback-form');
 const STORAGE_KEY = 'feedback-form-state';
 
@@ -6,22 +8,28 @@ let formData = {
   message: '',
 };
 
-// Відновлення даних з localStorage
+// Відновлення збережених даних
 const savedData = localStorage.getItem(STORAGE_KEY);
 if (savedData) {
-  formData = JSON.parse(savedData);
-  form.email.value = formData.email || '';
-  form.message.value = formData.message || '';
+  try {
+    formData = JSON.parse(savedData);
+    form.email.value = formData.email || '';
+    form.message.value = formData.message || '';
+  } catch (e) {
+    console.error('Помилка при читанні з localStorage', e);
+  }
 }
 
-// Слухач input — делегування + trim
-form.addEventListener('input', event => {
+// Збереження даних з debounce і trim
+const saveToStorage = debounce(event => {
   const { name, value } = event.target;
-  formData[name] = value.trimStart(); // очищує пробіли з початку
+  formData[name] = value.trimStart();
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
-});
+}, 300);
 
-// Сабміт форми з повним trim + перевірка
+form.addEventListener('input', saveToStorage);
+
+// Сабміт форми
 form.addEventListener('submit', event => {
   event.preventDefault();
 
@@ -33,10 +41,10 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  formData = { email, message };
-  console.log(formData);
+  const result = { email, message };
+  console.log(result);
 
-  form.reset();
   localStorage.removeItem(STORAGE_KEY);
+  form.reset();
   formData = { email: '', message: '' };
 });

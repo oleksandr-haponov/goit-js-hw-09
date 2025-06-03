@@ -72,10 +72,10 @@ const gallery = document.querySelector('.gallery');
 gallery.innerHTML = images
   .map(
     ({ preview, original, description }) => `
-  <li class="gallery_item">
-    <a class="gallery_link" href="${original}">
+  <li class="gallery__item">
+    <a class="gallery__link" href="${original}">
       <img
-        class="gallery_image"
+        class="gallery__image"
         src="${preview}"
         alt="${description}"
       />

@@ -14,25 +14,28 @@ if (savedData) {
   form.message.value = formData.message || '';
 }
 
-// Слухач input — делегування
+// Слухач input — делегування + trim
 form.addEventListener('input', event => {
   const { name, value } = event.target;
-  formData[name] = value.trim();
+  formData[name] = value.trimStart(); // очищує пробіли з початку
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 });
 
-// Слухач submit
+// Сабміт форми з повним trim + перевірка
 form.addEventListener('submit', event => {
   event.preventDefault();
 
-  if (!formData.email || !formData.message) {
+  const email = form.email.value.trim();
+  const message = form.message.value.trim();
+
+  if (!email || !message) {
     alert('Fill please all fields');
     return;
   }
 
+  formData = { email, message };
   console.log(formData);
-  
-  // Очистка форми та localStorage
+
   form.reset();
   localStorage.removeItem(STORAGE_KEY);
   formData = { email: '', message: '' };

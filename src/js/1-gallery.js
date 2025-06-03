@@ -64,41 +64,39 @@ const images = [
   },
 ];
 
+import SimpleLightbox from 'simplelightbox';
+import 'simplelightbox/dist/simple-lightbox.min.css';
+
+const images = [
+  {
+    preview:
+      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820__480.jpg',
+    original:
+      'https://cdn.pixabay.com/photo/2019/05/14/16/43/rchids-4202820_1280.jpg',
+    description: 'Hokkaido Flower',
+  },
+  // ... (інші зображення)
+];
+
 const gallery = document.querySelector('.gallery');
 
 gallery.innerHTML = images
   .map(
     ({ preview, original, description }) => `
-  <li class="gallery__item">
-  <a class="gallery__link" href="${original}">
-    <img
-      class="gallery__image"
-      src="${preview}"
-      data-source="${original}"
-      alt="${description}"
-    />
-    </a>
-  </li>
-`
+      <li class="gallery__item">
+        <a class="gallery__link" href="${original}">
+          <img
+            class="gallery__image"
+            src="${preview}"
+            alt="${description}"
+          />
+        </a>
+      </li>
+    `
   )
   .join('');
 
-gallery.addEventListener('click', (event) => {
-  const img = event.target.closest('.gallery__image');
-  if (!img) return;
-
-  const instance = basicLightbox.create(`
-    <img class="modal__image" src="${img.dataset.source}" alt="${img.alt}" />
-  `);
-
-  instance.show();
-
-  const escHandler = (e) => {
-    if (e.key === 'Escape') {
-      instance.close();
-      document.removeEventListener('keydown', escHandler);
-    }
-  };
-
-  document.addEventListener('keydown', escHandler);
+new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
 });

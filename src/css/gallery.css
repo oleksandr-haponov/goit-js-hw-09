@@ -1,0 +1,43 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 24px 0;
+  max-width: 1200px;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.gallery__item {
+  position: relative;
+}
+
+.gallery__image {
+  width: 360px;
+  height: 200px;
+  object-fit: cover;
+  transition: all 0.3s ease;
+  cursor: zoom-in;
+  border-radius: 8px;
+}
+
+.gallery__image:hover,
+.gallery__image:focus {
+  width: 376px;
+  height: 208px;
+  margin: -4px -8px;
+  outline: none;
+}
+
+/* Стилі модального зображення для SimpleLightbox */
+.sl-overlay {
+  background: rgba(46, 47, 66, 0.8);
+}
+
+.sl-wrapper .sl-image {
+  margin: 28px auto;
+  max-width: 1112px;
+  height: auto;
+  object-fit: contain;
+}
